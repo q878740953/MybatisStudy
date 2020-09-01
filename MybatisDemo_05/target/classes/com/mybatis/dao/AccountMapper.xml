@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.dao.AccountMapper">
+    <resultMap id="accountMapper" type="com.mybatis.domain.Account">
+        <association property="user" column="uid" javaType="com.mybatis.domain.User" select="com.mybatis.dao.UserMapper.getUserById"/>
+    </resultMap>
+    <select id="getAccountByUid"  parameterType="int" resultType="com.mybatis.domain.Account">
+        select * from account where uid=#{uid}
+    </select>
+    <select id="getAllAccount" resultMap="accountMapper">
+        select * from account
+    </select>
+</mapper>

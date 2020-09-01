@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.dao.UserMapper">
+    <resultMap id="userMapper" type="com.mybatis.domain.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="birthday" column="birthday"/>
+        <result property="sex" column="sex"/>
+        <result property="address" column="address"/>
+        <collection property="accounts" ofType="com.mybatis.domain.Account" select="com.mybatis.dao.AccountMapper.getAccountByUid" column="id"/>
+    </resultMap>
+    <select id="getAllUser" resultMap="userMapper">
+        select * from user
+    </select>
+    <select id="getUserById" resultType="com.mybatis.domain.User" parameterType="int">
+        select * from user where id=#{id}
+    </select>
+    <update id="updateUserInfo" parameterType="com.mybatis.domain.User">
+        update user set username=#{username} where id=#{id}
+    </update>
+</mapper>
